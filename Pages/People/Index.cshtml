@@ -1,0 +1,15 @@
+@page 
+@model PeopleModel
+
+<h1>People</h1>
+
+@Model.People.Count() people found.
+
+@foreach (var person in Model.People)
+{
+    <div>
+        <h2>@person.Name</h2>
+        <p>@person.City</p>
+    </div>
+}
+ 
