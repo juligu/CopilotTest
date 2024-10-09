@@ -26,7 +26,17 @@ public class PeopleRepository : IPeopleRepository
     }
     public async Task<Person> GetPersonAsync(int id)
     {
-        return await _context.People.FindAsync(id);
+        List<Person> people = await _context.People.ToListAsync();
+
+        foreach (Person person in people)
+        {
+            if (person.Id == id)
+            {
+                await Task.Delay(5000);
+                return person;
+            }
+        }
+        return new Person();
     }
     public async Task<Person> AddPersonAsync(Person person)
     {
