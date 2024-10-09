@@ -3,13 +3,22 @@
 
 <h1>People</h1>
 
-@Model.People.Count() people found.
+<p>@Model.People.Count() people found.</p>
 
-@foreach (var person in Model.People)
-{
-    <div>
-        <h2>@person.Name</h2>
-        <p>@person.City</p>
-    </div>
-}
- 
+<table class="table table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model.People)
+        {
+            <tr>
+                <td>@person.Name</td>
+                <td>@person.City.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

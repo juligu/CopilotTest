@@ -18,6 +18,7 @@ public class PeopleRepository : IPeopleRepository
         _context.People.Add(new Person { Name = "Mary", Age = 29, City = new City { Name = "Philadelphia" } });
         _context.People.Add(new Person { Name = "Bob", Age = 27, City = new City { Name = "San Antonio" } });
         _context.People.Add(new Person { Name = "Alice", Age = 23, City = new City { Name = "San Diego" } });   
+        
         _context.SaveChanges();
     }
     public async Task<List<Person>> GetPeopleAsync()
@@ -26,17 +27,23 @@ public class PeopleRepository : IPeopleRepository
     }
     public async Task<Person> GetPersonAsync(int id)
     {
-        List<Person> people = await _context.People.ToListAsync();
+        // List<Person> people = await _context.People.ToListAsync();
 
-        foreach (Person person in people)
-        {
-            if (person.Id == id)
-            {
-                await Task.Delay(5000);
-                return person;
-            }
-        }
-        return new Person();
+        // foreach (Person person in people)
+        // {
+        //     if (person.Id == id)
+        //     {
+        //         await Task.Delay(5000);
+        //         return person;
+        //     }
+        // }
+        // return new Person();
+
+        var person = await _context.People
+            .AsNoTracking() // Improves performance by not tracking the entity
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        return person ?? new Person(); // Return a new Person if not found        
     }
     public async Task<Person> AddPersonAsync(Person person)
     {
