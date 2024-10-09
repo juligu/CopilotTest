@@ -6,5 +6,6 @@ namespace Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Person> People { get; set; }
+        public int StateId { get; set; }
     }
 }
